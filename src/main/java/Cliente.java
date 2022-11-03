@@ -6,16 +6,5 @@ public class Cliente extends Usuario {
         super(nombre, userId, password);
     }
 
-    public List <Propiedad>  buscarPropiedad(Propiedad propiedad){
 
-        return null;
-    }
-    public void alquilar(){
-
-
-    }
-    public void comprar(){
-
-
-    }
 }

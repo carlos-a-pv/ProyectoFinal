@@ -1,3 +1,4 @@
+import java.text.DateFormat;
 import java.util.List;
 
 public class FincaRaiz {
@@ -37,5 +38,61 @@ public class FincaRaiz {
 
     public void setAdministradores(List<Administrador> administradores) {
         this.administradores = administradores;
+    }
+    public void registrarPropiedad(Propiedad propiedad, Exception e){
+
+
+    }
+    public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
+
+
+    }
+    public void registrarCliente (Cliente cliente,Exception e){
+
+
+    }
+    public void alquilar (Propiedad propiedad,Exception e){
+
+
+    }
+    public void vender (Propiedad propiedad,Exception e){
+
+
+    }
+    public void retirarPropiedad (Propiedad propiedad){
+
+
+    }
+    public void registrarTransacciones (){
+
+
+    }
+    public List <Propiedad>  buscarPropiedad(Propiedad propiedad){
+
+        return null;
+    }
+    public void alquilar(){
+
+
+    }
+    public void comprar(){
+
+
+    }
+    public void registrarEmpleado(Empleado empleado, Exception e){
+
+
+    }
+    public void visualizarReportes (DateFormat periodo, Exception e){
+
+
+    }
+    public void bloquearCuenta(){
+
+
+    }
+    public void actualizarDatosEmpleado(){
+
+
     }
 }
