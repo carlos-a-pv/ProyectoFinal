@@ -41,5 +41,7 @@ public class AppTest
         List<Empleado> list = finca1.getEmpleados;
         
         Administrador admin1 = new Administrador("carlos", "1234", "1234");
+
+        System.out.println(admin1.getN
     }
 }
