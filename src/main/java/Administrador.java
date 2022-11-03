@@ -5,20 +5,5 @@ public class Administrador extends Usuario {
         super(nombre, userId, password);
     }
 
-    public void registrarEmpleado(Empleado empleado, Exception e){
 
-
-    }
-    public void visualizarReportes (DateFormat periodo, Exception e){
-
-
-    }
-    public void bloquearCuenta(){
-
-
-    }
-    public void actualizarDatosEmpleado(){
-
-
-    }
 }
