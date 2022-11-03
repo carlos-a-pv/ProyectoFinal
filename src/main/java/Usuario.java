@@ -3,10 +3,22 @@ public class Usuario {
     private String userId;
     private String password;
 
-    public Usuario(String nombre, String userId, String password) {
+    private Rol cargo;
+    public Usuario(String nombre, String userId, String password,Rol cargo) {
         this.nombre = nombre;
         this.userId = userId;
         this.password = password;
+        this.cargo = cargo;
+
+
+    }
+
+    public Rol getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Rol cargo) {
+        this.cargo = cargo;
     }
 
     public String getNombre() {
