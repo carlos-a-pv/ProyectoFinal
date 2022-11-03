@@ -35,4 +35,11 @@ public class AppTest
     {
         assertTrue( true );
     }
+
+    void main(){
+        FincaRaiz finca1 = new FincaRaiz();
+        List<Empleado> list = finca1.getEmpleados;
+        
+        Administrador admin1 = new Administrador("carlos", "1234", "1234");
+    }
 }
