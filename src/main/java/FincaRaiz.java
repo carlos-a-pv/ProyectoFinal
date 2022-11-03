@@ -39,9 +39,24 @@ public class FincaRaiz {
     public void setAdministradores(List<Administrador> administradores) {
         this.administradores = administradores;
     }
-    public void registrarPropiedad(Propiedad propiedad, Exception e){
+    public void registrarPropiedad(Propiedad propiedad, Usuario usuario) throws Exception {
 
+    if (usuario.getCargo()== Rol.EMPLEADO) {
+        String dirrecion1 = propiedad.getDirrecion();
+        Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirrecion() == dirrecion1).findFirst().orElse(null);
+        if (propiedaAux != null) {
+            throw new Exception("La propiedad ya existe");
+        } else if (propiedad != null) {
 
+            propiedades.add(propiedad);
+        } else {
+            throw new Exception("Datos invalidos");
+        }
+    }
+    else {
+        throw new Exception("Solo los empleados pueden registrar propiedades");
+
+    }
     }
     public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
 
@@ -95,4 +110,6 @@ public class FincaRaiz {
 
 
     }
+
+
 }
