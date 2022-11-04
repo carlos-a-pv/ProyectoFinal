@@ -2,24 +2,24 @@ import java.util.List;
 
 public class Propiedad {
 
-    private String dirrecion;
+    private String direcion;
     private double valor;
-    private float area;
+    private double area;
     private Propietario propietario;
 
-    public Propiedad(String dirrecion, double valor, float area, Propietario propietario) {
-        this.dirrecion = dirrecion;
+    public Propiedad(String direcion, double valor, double area, Propietario propietario) {
+        this.direcion = direcion;
         this.valor = valor;
         this.area = area;
         this.propietario = propietario;
     }
 
-    public String getDirrecion() {
-        return dirrecion;
+    public String getDirecion() {
+        return direcion;
     }
 
-    public void setDirrecion(String dirrecion) {
-        this.dirrecion = dirrecion;
+    public void setDirrecion(String direcion) {
+        this.direcion = direcion;
     }
 
     public double getValor() {
@@ -30,7 +30,7 @@ public class Propiedad {
         this.valor = valor;
     }
 
-    public float getArea() {
+    public double getArea() {
         return area;
     }
 

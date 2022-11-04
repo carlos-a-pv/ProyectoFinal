@@ -6,32 +6,12 @@ public class Empleado extends Usuario {
         super(nombre, userId, password);
     }
 
-    public void registrarPropiedad(Propiedad propiedad, Exception e){
+	@Override
+	public String toString() {
+		return "Empleado [getNombre()=" + getNombre() + ", getUserId()=" + getUserId() + ", getPassword()="
+				+ getPassword() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
 
 
-    }
-    public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
-
-
-    }
-    public void registrarCliente (Cliente cliente,Exception e){
-
-
-    }
-    public void alquilar (Propiedad propiedad,Exception e){
-
-
-    }
-    public void vender (Propiedad propiedad,Exception e){
-
-
-    }
-    public void retirarPropiedad (Propiedad propiedad){
-
-
-    }
-    public void registrarTransacciones (){
-
-
-    }
 }
