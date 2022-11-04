@@ -3,7 +3,7 @@ public class Vivienda extends Propiedad{
     int numeroBaños;
     int pisos;
 
-    public Vivienda(String dirrecion, double valor, float area,
+    public Vivienda(String dirrecion, double valor, double area,
                     Propietario propietario, int numeroCuartos, int numeroBaños, int pisos) {
         super(dirrecion, valor, area, propietario);
         this.numeroCuartos = numeroCuartos;

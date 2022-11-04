@@ -6,5 +6,12 @@ public class Empleado extends Usuario {
         super(nombre, userId, password,cargo);
     }
 
+	@Override
+	public String toString() {
+		return "Empleado [getNombre()=" + getNombre() + ", getUserId()=" + getUserId() + ", getPassword()="
+				+ getPassword() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
+				+ super.toString() + "]";
+	}
+
 
 }
