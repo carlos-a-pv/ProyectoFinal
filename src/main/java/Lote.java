@@ -1,7 +1,14 @@
 public class Lote extends Propiedad{
-    String zona;
+    @Override
+	public String toString() {
+		return "Lote [zona=" + zona + ", getDirecion()=" + getDirecion() + ", getValor()=" + getValor() + ", getArea()="
+				+ getArea() + ", getPropietario()=" + getPropietario() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + ", toString()=" + super.toString() + "]";
+	}
 
-    public Lote(String dirrecion, double valor, float area, Propietario propietario, String zona) {
+	String zona;
+
+    public Lote(String dirrecion, double valor, double area, Propietario propietario, String zona) {
         super(dirrecion, valor, area, propietario);
         this.zona = zona;
     }
