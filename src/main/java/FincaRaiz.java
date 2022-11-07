@@ -6,11 +6,18 @@ import java.util.stream.Collectors;
 
 public class FincaRaiz {
 
-    private List<Propiedad> propiedades= new ArrayList<Propiedad>();
+    private List<Propiedad> propiedades;
     private List <Cliente> clientes;
     private List <Empleado> empleados=new ArrayList<Empleado>();
     private List <Administrador> administradores;
 
+    public FincaRaiz(){
+        propiedades = new ArrayList<>()
+        empleados = new ArrayList<>()
+        clientes = new ArrayList<>()
+        administradores = new ArrayList<>();
+    }
+    
     public List<Propiedad> getPropiedades() {
         return propiedades;
     }
