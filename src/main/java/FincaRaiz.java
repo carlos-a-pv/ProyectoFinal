@@ -12,9 +12,9 @@ public class FincaRaiz {
     private List <Administrador> administradores;
 
     public FincaRaiz(){
-        propiedades = new ArrayList<>()
-        empleados = new ArrayList<>()
-        clientes = new ArrayList<>()
+        propiedades = new ArrayList<>();
+        empleados = new ArrayList<>();
+        clientes = new ArrayList<>();
         administradores = new ArrayList<>();
     }
 
@@ -51,23 +51,24 @@ public class FincaRaiz {
     }
     public void registrarPropiedad(Propiedad propiedad, Usuario usuario) throws Exception {
 
-    if (usuario.getCargo()== Rol.EMPLEADO) {
-        String dirrecion1 = propiedad.getDirrecion();
-        Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirrecion() == dirrecion1).findFirst().orElse(null);
-        if (propiedaAux != null) {
-            throw new Exception("La propiedad ya existe");
-        } else if (propiedad != null) {
+        if (usuario instanceof Empleado) {
+            String dirrecion1 = propiedad.getDirecion();
+            Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirecion() == dirrecion1).findFirst().orElse(null);
+            if (propiedaAux != null) {
+                throw new Exception("La propiedad ya existe");
+            } else if (propiedad != null) {
 
-            propiedades.add(propiedad);
-        } else {
-            throw new Exception("Datos invalidos");
+                propiedades.add(propiedad);
+            
+            } else {
+                throw new Exception("Datos invalidos");
+            }
         }
-    }
-    else {
-        throw new Exception("Solo los empleados pueden registrar propiedades");
+        else {
+            throw new Exception("Solo los empleados pueden registrar propiedades");
 
-    }
-    }
+        }
+        }
     public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
 
 
@@ -85,6 +86,8 @@ public class FincaRaiz {
 
     }
     public void retirarPropiedad (Propiedad propiedad){
+    	
+    	
 
 
     }
@@ -94,10 +97,10 @@ public class FincaRaiz {
     }
     public List<String> buscarPropiedad(String propiedad){
     	
-        return propiedades.stream().map( (propiedad) -> {
-            return propiedad.getClass().getSimpleName();
-        }).filter( (propiedad)-> {
-            return propiedad.equalsIgnoreCase(propiedad);
+        return propiedades.stream().map( (propiedad1) -> {
+            return propiedad1.getClass().getSimpleName();
+        }).filter( (propiedad1)-> {
+            return propiedad1.equalsIgnoreCase(propiedad);
         }).collect(Collectors.toList());
         
         //lista.stream
@@ -143,15 +146,21 @@ public class FincaRaiz {
 
 
     }
-    public void bloquearCuenta(Empleado empleado){
+    public void bloquearCuenta(Usuario usuario,Empleado empleado){
 
-    	empleados.remove(empleado);
-
+    	//empleados.remove(empleado);
+    	
+    		if (usuario instanceof Administrador) {
+    		empleado.setEstado(false);
+    		}
+    		else {
+    			System.out.println("Solo los administradores pueden bloquear cuentas");
+    		}
     }
     public void actualizarDatosEmpleado(String nombre, String userId, String password){
 
     	int index=empleados.indexOf(empleados.stream().filter(empleado1 ->empleado1.getNombre().equals(nombre)).findFirst().get());
-    	Empleado empleado=new Empleado(nombre,userId,password);
+    	Empleado empleado=new Empleado(nombre,userId,password,true);
 
     	//empleado.setNombre(nombre);
         empleado.setUserId(userId);
