@@ -157,16 +157,22 @@ public class FincaRaiz {
     			System.out.println("Solo los administradores pueden bloquear cuentas");
     		}
     }
-    public void actualizarDatosEmpleado(String nombre, String userId, String password){
 
-    	int index=empleados.indexOf(empleados.stream().filter(empleado1 ->empleado1.getNombre().equals(nombre)).findFirst().get());
-    	Empleado empleado=new Empleado(nombre,userId,password,true);
+    public void actualizarEmpleado(Usuario usuario, Empleado empleado, Empleado empleadoActualizado, Exception e) {
 
-    	//empleado.setNombre(nombre);
-        empleado.setUserId(userId);
-        empleado.setPassword(password);
-        empleados.set(index, empleado);
-
-        //final
+        if (usuario instanceof Administrador) {
+            if (empleado != null && empleadoActualizado != null) {
+                empleado.setNombre(empleadoActualizado.getNombre());
+                empleado.setUserId(empleadoActualizado.getUserId());
+                empleado.setPassword(empleadoActualizado.getPassword());
+            } else {
+                throw new Exception("Datos invalidos");
+            }
+        } else {
+            throw new Exception("Solo los administradores pueden actualizar empleados");
+        }
     }
+
+
+
 }
