@@ -95,9 +95,9 @@ public class FincaRaiz {
     public List<String> buscarPropiedad(String propiedad){
     	
         return propiedades.stream().map( (propiedad) -> {
-            return propiedad.getClass().getSimpleName().toLowerCase();
+            return propiedad.getClass().getSimpleName();
         }).filter( (propiedad)-> {
-            return propiedad.equals(propiedad);
+            return propiedad.equalsIgnoreCase(propiedad);
         }).collect(Collectors.toList());
         
         //lista.stream
