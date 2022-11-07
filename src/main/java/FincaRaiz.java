@@ -104,7 +104,7 @@ public class FincaRaiz {
     public void comprar(Propiedad propiedad){
     	
     	propiedades.remove(propiedad);
-
+    	
     }
     public void registrarEmpleado(Empleado empleado, Exception e){
     	
