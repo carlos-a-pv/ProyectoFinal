@@ -6,10 +6,17 @@ import java.util.stream.Collectors;
 
 public class FincaRaiz {
 
-    private List<Propiedad> propiedades= new ArrayList<Propiedad>();
+    private List<Propiedad> propiedades;
     private List <Cliente> clientes;
-    private List <Empleado> empleados=new ArrayList<Empleado>();
+    private List <Empleado> empleados;
     private List <Administrador> administradores;
+
+    public FincaRaiz(){
+        propiedades = new ArrayList<>()
+        empleados = new ArrayList<>()
+        clientes = new ArrayList<>()
+        administradores = new ArrayList<>();
+    }
 
     public List<Propiedad> getPropiedades() {
         return propiedades;
@@ -85,29 +92,36 @@ public class FincaRaiz {
 
 
     }
-    public List<?>  buscarPropiedad(String propiedad){
-    	//lista.stream
+    public List<String> buscarPropiedad(String propiedad){
+    	
+        return propiedades.stream().map( (propiedad) -> {
+            return propiedad.getClass().getSimpleName();
+        }).filter( (propiedad)-> {
+            return propiedad.equalsIgnoreCase(propiedad);
+        }).collect(Collectors.toList());
+        
+        //lista.stream
 
-    	switch (propiedad) {
-		case "Parqueadero":
-			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Parqueadero).collect(Collectors.toList());
+    	// switch (propiedad) {
+		// case "Parqueadero":
+		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Parqueadero).collect(Collectors.toList());
 
-		case "Bodega":
-			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Bodega).collect(Collectors.toList());
+		// case "Bodega":
+		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Bodega).collect(Collectors.toList());
 
-		case "Edificio":
-			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Edificio).collect(Collectors.toList());
+		// case "Edificio":
+		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Edificio).collect(Collectors.toList());
 
-		case "Vivienda":
-			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Vivienda).collect(Collectors.toList());
+		// case "Vivienda":
+		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Vivienda).collect(Collectors.toList());
 
-		case "Lote":
-			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Lote).collect(Collectors.toList());
-		default:
-			break;
-		}
+		// case "Lote":
+		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Lote).collect(Collectors.toList());
+		// default:
+		// 	break;
+		// }
 
-    		return null;
+    	// 	return null;
     }
     public void alquilar(){
 
