@@ -6,17 +6,10 @@ import java.util.stream.Collectors;
 
 public class FincaRaiz {
 
-    private List<Propiedad> propiedades;
+    private List<Propiedad> propiedades= new ArrayList<Propiedad>();
     private List <Cliente> clientes;
-    private List <Empleado> empleados;
+    private List <Empleado> empleados=new ArrayList<Empleado>();
     private List <Administrador> administradores;
-
-    public FincaRaiz(){
-        propiedades = new ArrayList<>();
-        empleados = new ArrayList<>();
-        clientes = new ArrayList<>();
-        administradores = new ArrayList<>();
-    }
 
     public List<Propiedad> getPropiedades() {
         return propiedades;
@@ -67,8 +60,7 @@ public class FincaRaiz {
         throw new Exception("Solo los empleados pueden registrar propiedades");
 
     }
-    }
-    public void registrarPropietarioPropietarios(Propietario propietario){
+    public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
 
 
     }
@@ -86,20 +78,20 @@ public class FincaRaiz {
     }
     public void retirarPropiedad (Propiedad propiedad){
 
-
+    				
     }
     public void registrarTransacciones (){
 
 
     }
     public List<String> buscarPropiedad(String propiedad){
-    	
+
         return propiedades.stream().map( (propiedad1) -> {
             return propiedad1.getClass().getSimpleName();
         }).filter( (propiedad1)-> {
             return propiedad1.equalsIgnoreCase(propiedad);
         }).collect(Collectors.toList());
-        
+
         //lista.stream
 
     	// switch (propiedad) {
@@ -112,20 +104,20 @@ public class FincaRaiz {
 		// case "Edificio":
 		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Edificio).collect(Collectors.toList());
 
-		// case "Vivienda":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Vivienda).collect(Collectors.toList());
+		case "Vivienda": 
+			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Vivienda).collect(Collectors.toList());
 
-		// case "Lote":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Lote).collect(Collectors.toList());
-		// default:
-		// 	break;
-		// }
-
-    	// 	return null;
+		case "Lote": 
+			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Lote).collect(Collectors.toList());			
+		default:
+			break;
+		}
+    	
+    		return null;
     }
     public void alquilar(){
 
-
+    	
 
     }
     public void comprar(Propiedad propiedad){
@@ -144,22 +136,20 @@ public class FincaRaiz {
 
     }
     public void bloquearCuenta(Empleado empleado){
-
+    	
     	empleados.remove(empleado);
-
+    	
     }
     public void actualizarDatosEmpleado(String nombre, String userId, String password){
-
+    	
     	int index=empleados.indexOf(empleados.stream().filter(empleado1 ->empleado1.getNombre().equals(nombre)).findFirst().get());
     	Empleado empleado=new Empleado(nombre,userId,password);
-
+    		
     	//empleado.setNombre(nombre);
         empleado.setUserId(userId);
         empleado.setPassword(password);
         empleados.set(index, empleado);
-
+           
         //final
     }
-
-
 }
