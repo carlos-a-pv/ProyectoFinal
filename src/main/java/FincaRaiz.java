@@ -12,9 +12,9 @@ public class FincaRaiz {
     private List <Administrador> administradores;
 
     public FincaRaiz(){
-        propiedades = new ArrayList<>()
-        empleados = new ArrayList<>()
-        clientes = new ArrayList<>()
+        propiedades = new ArrayList<>();
+        empleados = new ArrayList<>();
+        clientes = new ArrayList<>();
         administradores = new ArrayList<>();
     }
 
@@ -51,9 +51,9 @@ public class FincaRaiz {
     }
     public void registrarPropiedad(Propiedad propiedad, Usuario usuario) throws Exception {
 
-    if (usuario.getCargo()== Rol.EMPLEADO) {
-        String dirrecion1 = propiedad.getDirrecion();
-        Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirrecion() == dirrecion1).findFirst().orElse(null);
+    if (usuario instanceof Empleado) {
+        String dirrecion1 = propiedad.getDirecion();
+        Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirecion() == dirrecion1).findFirst().orElse(null);
         if (propiedaAux != null) {
             throw new Exception("La propiedad ya existe");
         } else if (propiedad != null) {
@@ -68,7 +68,7 @@ public class FincaRaiz {
 
     }
     }
-    public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
+    public void registrarPropietarioPropietarios(Propietario propietario){
 
 
     }
@@ -94,10 +94,10 @@ public class FincaRaiz {
     }
     public List<String> buscarPropiedad(String propiedad){
     	
-        return propiedades.stream().map( (propiedad) -> {
-            return propiedad.getClass().getSimpleName();
-        }).filter( (propiedad)-> {
-            return propiedad.equalsIgnoreCase(propiedad);
+        return propiedades.stream().map( (propiedad1) -> {
+            return propiedad1.getClass().getSimpleName();
+        }).filter( (propiedad1)-> {
+            return propiedad1.equalsIgnoreCase(propiedad);
         }).collect(Collectors.toList());
         
         //lista.stream
