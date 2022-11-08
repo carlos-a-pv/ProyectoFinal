@@ -12,6 +12,7 @@ public class FincaRaiz {
     private List <Empleado> empleados;
     private List <Administrador> administradores;
     private  List <Propietario> propietarios;
+    private List<Transaccion> transacciones;
     
     Scanner teclado = new Scanner(System.in);
     Administrador admin = new Administrador("admin", "001", "admin");
@@ -22,7 +23,7 @@ public class FincaRaiz {
         clientes = new ArrayList<>();
         administradores = new ArrayList<>();
         propietarios = new ArrayList<>();
-        
+        transacciones = new ArrayList<>();
     }
 
     public List<Propiedad> getPropiedades() {
@@ -116,11 +117,14 @@ public class FincaRaiz {
     	String disponibilidad = propiedad.getDisponibilidad().toString();
     	
     	for (Propiedad propiedad2 : propiedades) {
+    		
 			if (propiedad2.equals(propiedad)) {
+				
 				if(disponibilidad.equalsIgnoreCase("disponible") ) {
 		    		System.out.println("Alquilada");
 		    		propiedad.setDisponibilidad(Disponibilidad.NO_DISPONIBLE);
 		    		//hacer o realizar una trasaccion
+		    		//Llamar al método registrarTransaccion
 		    		
 		    	}else {
 		    		System.out.println("La propiedad ya esta alquilada.");
@@ -132,16 +136,20 @@ public class FincaRaiz {
     	
     	
     }
-    public void vender (Propiedad propiedad){
+    public void vender (Empleado empleado, Cliente cliente, Propiedad propiedad){
     	String disponibilidad = propiedad.getDisponibilidad().toString();
     	
     	for (Propiedad propiedad2 : propiedades) {
+    		
 			if (propiedad2.equals(propiedad)) {
+				
 				if(disponibilidad.equalsIgnoreCase("disponible") ) {
 		    		System.out.println("Vendida");
 		    		propiedad.setDisponibilidad(Disponibilidad.NO_DISPONIBLE);
 		    		
-		    		//hacer o realizar una trasaccion
+		    		registrarTransaccion(empleado, cliente, propiedad);
+		    		
+		    		
 		    	}else {
 		    		System.out.println("La propiedad ya esta alquilada.");
 		    	}
@@ -151,9 +159,28 @@ public class FincaRaiz {
 		}
     }
     
-    public void registrarTransacciones (){
-
-
+    public void registrarTransaccion(Empleado empleado, Cliente cliente, Propiedad propiedad){
+    	
+    	transacciones.add(new Transaccion(empleado, cliente, propiedad));
+	
+	/*
+    	Propiedad propiedadDisponible = this.obtenerPropiedad(propiedad.getDirecion());
+    	
+    	if(propiedadDisponible == null) {
+    		System.out.println("esta propiedad no existe");
+    	}
+    	else {
+    		if(propiedadDisponible.isDisponible()) {
+        		System.out.println("la propiedad ya esta ocupada "+propiedad.getDirecion());
+        	}
+        	else {
+        		Transaccion transaccion = new Transaccion(empleado, cliente, propiedad);
+        		transacciones.add(transaccion);
+        		
+        		propiedadDisponible.setDisponible(false);
+        	}
+    	}*/
+    	
     }
     public List<String> buscarPropiedad(String propiedad){
     	
@@ -206,9 +233,37 @@ public class FincaRaiz {
 
         }
     }
-    public void visualizarReportes (DateFormat periodo, Exception e){
+    public ArrayList<ReporteVentasPorEmpleado> visualizarReporte(LocalDateTime fechaInicio, LocalDateTime fechaFinal, String idEmpleado){
+    	ArrayList<ReporteVentasPorEmpleado> listaReporte = new ArrayList<ReporteVentasPorEmpleado>();
+    
+    	ArrayList<Transaccion> listaTransaccionRango =  (ArrayList<Transaccion>) transacciones.stream().filter(transaccion -> (
+    			  
+    			  transaccion.getEmpleado().getUserId().equals(idEmpleado) &&
+    			  (transaccion.getFechaRegistro().isAfter(fechaInicio) || transaccion.getFechaRegistro().equals(fechaInicio))
+    			  &&
+    			  (transaccion.getFechaRegistro().isBefore(fechaFinal) || transaccion.getFechaRegistro().equals(fechaFinal))
+    			  )).collect(Collectors.toList());
+    	
+    	//Devuelve los datos de un empleado, Busca por id y por rango de fechas y devuelve una lista de transacciones por ejemplo ventas y alquileres de casas 
+    	
+    	
+    	if(listaTransaccionRango.size() > 0) {
+    		ReporteVentasPorEmpleado ventas = new ReporteVentasPorEmpleado(); //Aqui instancio el empleado con 
+        	ventas.setNombreEmpleado(listaTransaccionRango.get(0).getEmpleado().getNombre()); //Con esto accedo al primer registro que sería el nombre del empleado, siempre sera el mismo porque se filtro por un solo id
+        	int cantidadVentas = 0;
+        	double total = 0;
+        	for (Transaccion transac : listaTransaccionRango) {
+        		total += transac.getPropiedad().getValor();
+        		cantidadVentas++;
+    		}
 
+        	ventas.setCantidadPropiedades(cantidadVentas);
+        	ventas.setTotal(total);
+        	listaReporte.add(ventas);
+    	}
 
+    	
+    	return listaReporte;
     }
     public void bloquearCuenta(Usuario usuario,Empleado empleado){
     	
