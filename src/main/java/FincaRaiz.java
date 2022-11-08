@@ -11,11 +11,14 @@ public class FincaRaiz {
     private List <Empleado> empleados;
     private List <Administrador> administradores;
 
+    private List <Transaccion> transacciones;
+
     public FincaRaiz(){
         propiedades = new ArrayList<>();
         empleados = new ArrayList<>();
         clientes = new ArrayList<>();
         administradores = new ArrayList<>();
+        transacciones = new ArrayList<>();
     }
 
     public List<Propiedad> getPropiedades() {
@@ -91,9 +94,13 @@ public class FincaRaiz {
 
 
     }
-    public void registrarTransacciones (){
 
-
+    public void registrarTransacciones (Transaccion transaccion) throws Exception {
+        if (transaccion.estadoTransaccion == true) {
+            transacciones.add(transaccion);
+        }else {
+            throw new Exception("La transaccion no se ha realizado");
+        }
     }
     public List<String> buscarPropiedad(String propiedad){
     	
@@ -147,11 +154,15 @@ public class FincaRaiz {
 
     }
     public void bloquearCuenta(Usuario usuario,Empleado empleado){
-
-    	//empleados.remove(empleado);
     	
     		if (usuario instanceof Administrador) {
-    		empleado.setEstado(false);
+                Empleado empleadoAux = empleado;
+                empleado = empleados.stream().filter(empleados -> empleados.getUserId() == empleadoAux.getUserId()).findFirst().orElse(null);
+                if (empleado != null) {
+                    empleado.setEstado(false);
+                }else {
+                    System.out.println("Datos invalidos.");
+                }
     		}
     		else {
     			System.out.println("Solo los administradores pueden bloquear cuentas");
