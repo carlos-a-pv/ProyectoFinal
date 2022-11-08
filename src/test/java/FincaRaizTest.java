@@ -31,7 +31,7 @@ public class FincaRaizTest extends TestCase {
         FincaRaiz inmobiliaria = new FincaRaiz();
         Empleado nn = new Empleado("","","",true);
         Propietario propietario = new Propietario("","");
-        inmobiliaria.registrarPropietarioPropietarios(propietario,nn);
+        inmobiliaria.registrarPropietario(propietario,nn);
         System.out.println(inmobiliaria.getPropietarios());
     }
 

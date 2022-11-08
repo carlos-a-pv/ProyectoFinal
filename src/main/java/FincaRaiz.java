@@ -1,6 +1,5 @@
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -96,7 +95,7 @@ public class FincaRaiz {
 
         }
     }
-    public void registrarPropietarioPropietarios(Propietario propietario,Empleado empleado) throws Exception {
+    public void registrarPropietario(Propietario propietario, Empleado empleado) throws Exception {
 
         if (empleado.isEstado() == true) {
             String dirrecion1 = propietario.getNombre();
