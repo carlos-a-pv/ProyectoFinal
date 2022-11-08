@@ -10,8 +10,8 @@ public class Chalet extends Vivienda{
 
     public Chalet(String dirrecion, double valor, float area, Propietario propietario, int numeroCuartos,
                   int numeroBaños, int pisos, String materialConstruccion, Boolean aguaPotable,
-                  Boolean servicioAlcantarillado, Boolean pozoSeptico, Boolean internet, Boolean energiaElectrica, Boolean gasDomiciliario) {
-        super(dirrecion, valor, area, propietario, numeroCuartos, numeroBaños, pisos);
+                  Boolean servicioAlcantarillado, Boolean pozoSeptico, Boolean internet, Boolean energiaElectrica, Boolean gasDomiciliario, Disponibilidad disponibilidad) {
+        super(dirrecion, valor, area, propietario, numeroCuartos, numeroBaños, pisos, disponibilidad);
         this.materialConstruccion = materialConstruccion;
         this.aguaPotable = aguaPotable;
         this.servicioAlcantarillado = servicioAlcantarillado;

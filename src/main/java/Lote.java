@@ -8,8 +8,8 @@ public class Lote extends Propiedad{
 
 	String zona;
 
-    public Lote(String dirrecion, double valor, double area, Propietario propietario, String zona) {
-        super(dirrecion, valor, area, propietario);
+    public Lote(String dirrecion, double valor, double area, Propietario propietario, String zona, Disponibilidad disponibilidad) {
+        super(dirrecion, valor, area, propietario, disponibilidad);
         this.zona = zona;
     }
 }

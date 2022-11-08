@@ -6,12 +6,14 @@ public class Propiedad {
     private double valor;
     private double area;
     private Propietario propietario;
+    protected Disponibilidad disponibilidad;
 
-    public Propiedad(String direcion, double valor, double area, Propietario propietario) {
+    public Propiedad(String direcion, double valor, double area, Propietario propietario, Disponibilidad disponibilidad) {
         this.direcion = direcion;
         this.valor = valor;
         this.area = area;
         this.propietario = propietario;
+        this.disponibilidad = disponibilidad;
     }
 
     public String getDirecion() {
@@ -45,5 +47,14 @@ public class Propiedad {
     public void setPropietario(Propietario propietario) {
         this.propietario = propietario;
     }
+    
+    public Disponibilidad getDisponibilidad() {
+    	return this.disponibilidad;
+    }
+
+	public void setDisponibilidad(Disponibilidad disponibilidad) {
+		this.disponibilidad = disponibilidad;
+		
+	}
 
 }

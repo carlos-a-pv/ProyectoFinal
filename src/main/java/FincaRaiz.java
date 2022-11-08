@@ -2,6 +2,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class FincaRaiz {
@@ -10,12 +11,16 @@ public class FincaRaiz {
     private List <Cliente> clientes;
     private List <Empleado> empleados;
     private List <Administrador> administradores;
+    
+    Scanner teclado = new Scanner(System.in);
+    Administrador admin = new Administrador("admin", "001", "admin");
 
     public FincaRaiz(){
         propiedades = new ArrayList<>();
         empleados = new ArrayList<>();
         clientes = new ArrayList<>();
         administradores = new ArrayList<>();
+        
     }
 
     public List<Propiedad> getPropiedades() {
@@ -68,26 +73,45 @@ public class FincaRaiz {
         }
     }
     
-    public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
+    public void registrarCliente (Cliente cliente){
 
 
     }
-    public void registrarCliente (Cliente cliente,Exception e){
-
-
+    public void alquiler (Propiedad propiedad){
+    	String disponibilidad = propiedad.getDisponibilidad().toString();
+    	
+    	for (Propiedad propiedad2 : propiedades) {
+			if (propiedad2.equals(propiedad)) {
+				if(disponibilidad.equalsIgnoreCase("disponible") ) {
+		    		System.out.println("Alquilada");
+		    		propiedad.setDisponibilidad(Disponibilidad.NO_DISPONIBLE);
+		    	}else {
+		    		System.out.println("La propiedad ya esta alquilada.");
+		    	}
+			}else {
+				System.out.println("La propiedad no esta registrada");
+			}
+		}
+    	
+    	
     }
-    public void alquilar (Propiedad propiedad,Exception e){
-
-
+    public void vender (Propiedad propiedad){
+    	String disponibilidad = propiedad.getDisponibilidad().toString();
+    	
+    	for (Propiedad propiedad2 : propiedades) {
+			if (propiedad2.equals(propiedad)) {
+				if(disponibilidad.equalsIgnoreCase("disponible") ) {
+		    		System.out.println("Vendida");
+		    		propiedad.setDisponibilidad(Disponibilidad.NO_DISPONIBLE);
+		    	}else {
+		    		System.out.println("La propiedad ya esta alquilada.");
+		    	}
+			}else {
+				System.out.println("La propiedad no esta registrada");
+			}
+		}
     }
-    public void vender (Propiedad propiedad,Exception e){
-
-
-    }
-    public void retirarPropiedad (Propiedad propiedad){
-
-
-    }
+    
     public void registrarTransacciones (){
 
 
@@ -123,16 +147,7 @@ public class FincaRaiz {
 
     	// 	return null;
     }
-    public void alquilar(){
-
-
-
-    }
-    public void comprar(Propiedad propiedad){
-
-    	propiedades.remove(propiedad);
-
-    }
+    
     public void registrarEmpleado(Empleado empleado, Exception e){
 
     	empleados.add(empleado);
@@ -159,5 +174,46 @@ public class FincaRaiz {
         empleados.set(index, empleado);
 
         //final
+    }
+    
+    public boolean iniciarSesion(Usuario user) {
+    	System.out.print("UserId: ");
+    	String userId = teclado.next();
+    	
+    	if(userId.equals(user.getUserId())) {
+    		
+    		System.out.print("Password: ");
+        	String password = teclado.next();
+        	
+        	if(password.equals(user.getPassword())) {
+        		return true;
+        	}else {
+        		System.out.println("Contraseña incorrecta.");
+        		return false;
+        	}
+    	}else {
+    		System.out.println("El usuario no esta registrado.");
+    		return false;
+    	}
+    	
+    }
+    
+    public void menuEmpleado() {
+    	System.out.println("1.Registrar propiedad.");
+    	System.out.println("2.Registrar propietario.");
+    	System.out.println("3.Registrar cliente.");
+    	System.out.println("4.Alquiler.");
+    	System.out.println("5.Venta.");
+    	System.out.println("6.Retirar propiedad");
+    }
+    public void menuAdministrador() {
+    	System.out.println("1.Visualizar reportes.");
+    	System.out.println("2.Registrar empleado.");
+    	System.out.println("3.Actulizar datos empleado.");
+    	System.out.println("4.Bloquear cuenta.");
+    }
+    public void menuCliente() {
+    	System.out.println("1.Comprar");
+    	System.out.println("2.Alquilar");
     }
 }
