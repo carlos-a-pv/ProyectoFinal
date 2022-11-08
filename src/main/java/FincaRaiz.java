@@ -158,21 +158,23 @@ public class FincaRaiz {
     		}
     }
 
-    public void actualizarEmpleado(Usuario usuario, Empleado empleado, Empleado empleadoActualizado, Exception e) {
+
+
+    public void actualizarDatosEmpleado(Usuario usuario, Empleado empleado, String nombre, String userId, String password, boolean estado) throws Exception {
 
         if (usuario instanceof Administrador) {
-            if (empleado != null && empleadoActualizado != null) {
-                empleado.setNombre(empleadoActualizado.getNombre());
-                empleado.setUserId(empleadoActualizado.getUserId());
-                empleado.setPassword(empleadoActualizado.getPassword());
-            } else {
-                throw new Exception("Datos invalidos");
+            Empleado empleadoAux = empleado;
+            empleado = empleados.stream().filter(empleados -> empleados.getUserId() == empleadoAux.getUserId()).findFirst().orElse(null);
+            if (empleado != null) {
+                empleado.setNombre(nombre);
+                empleado.setUserId(userId);
+                empleado.setPassword(password);
+                empleado.setEstado(estado);
             }
         } else {
             throw new Exception("Solo los administradores pueden actualizar empleados");
         }
     }
-
 
 
 }
