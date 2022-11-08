@@ -4,7 +4,6 @@ public class Cliente extends Persona {
     public Cliente(String nombre, String id,String password) {
         super(nombre, id);
         this.password = password;
-
     }
 
 }
