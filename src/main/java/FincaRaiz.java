@@ -11,6 +11,7 @@ public class FincaRaiz {
     private List <Cliente> clientes;
     private List <Empleado> empleados;
     private List <Administrador> administradores;
+    private  List <Propietario> propietarios;
     
     Scanner teclado = new Scanner(System.in);
     Administrador admin = new Administrador("admin", "001", "admin");
@@ -20,6 +21,7 @@ public class FincaRaiz {
         empleados = new ArrayList<>();
         clientes = new ArrayList<>();
         administradores = new ArrayList<>();
+        propietarios = new ArrayList<>();
         
     }
 
@@ -72,10 +74,43 @@ public class FincaRaiz {
             throw new Exception("Solo los empleados pueden registrar propiedades");
         }
     }
+    public void registrarPropietario(Propietario propietario, Empleado empleado) throws Exception{
+
+
+        if (empleado.isEstado() == true) {
+            String dirrecion1 = propietario.getNombre();
+            Propietario propietarioAux = propietarios.stream().filter(propietario1 -> propietario1.getNombre() == dirrecion1).findFirst().orElse(null);
+            if (propietarioAux != null) {
+                throw new Exception("La propiedad ya existe");
+            } else if (propietario!= null) {
+
+                propietarios.add(propietario);
+            } else {
+                throw new Exception("Datos invalidos");
+            }
+        } else {
+            throw new Exception("Solo los empleados pueden registrar propiedades");
+
+        }
+    }
     
-    public void registrarCliente (Cliente cliente){
+    public void registrarCliente (Cliente cliente,Empleado empleado)throws Exception{
 
+    if (empleado.isEstado() == true) {
+        String dirrecion1 = empleado.getUserId();
+        Empleado propietarioAux = empleados.stream().filter(empleado1 -> empleado1.getNombre() == dirrecion1).findFirst().orElse(null);
+        if (propietarioAux != null) {
+            throw new Exception("La propiedad ya existe");
+        } else if (cliente!= null) {
 
+            clientes.add(cliente);
+        } else {
+            throw new Exception("Datos invalidos");
+        }
+    } else {
+        throw new Exception("Solo los empleados pueden registrar propiedades");
+
+        }
     }
     public void alquiler (Propiedad propiedad){
     	String disponibilidad = propiedad.getDisponibilidad().toString();
@@ -152,11 +187,24 @@ public class FincaRaiz {
     	// 	return null;
     }
     
-    public void registrarEmpleado(Empleado empleado, Exception e){
-
-    	empleados.add(empleado);
+    public void registrarEmpleado(Empleado empleado, Administrador administrador) throws Exception {
 
 
+        if (administrador instanceof Administrador) {
+            String userId1 = empleado.getUserId();
+            Empleado empleadoAux = empleados.stream().filter(empleado1 -> empleado1.getUserId() == userId1).findFirst().orElse(null);
+            if (empleadoAux != null) {
+                throw new Exception("La propiedad ya existe");
+            } else if (empleado != null) {
+
+                empleados.add(empleado);
+            } else {
+                throw new Exception("Datos invalidos");
+            }
+        } else {
+            throw new Exception("Solo los empleados pueden registrar propiedades");
+
+        }
     }
     public void visualizarReportes (DateFormat periodo, Exception e){
 
