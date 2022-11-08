@@ -8,7 +8,7 @@ public class Reporte extends Administrador {
   List <Empleado> registroVentas;
 
  public Reporte(String nombre, String userId, String password, DateTimeFormatter fecha, Empleado vendedor
-         , double valorNegocio, List<Empleado> registroVentas) {
+         , double valorNegocio, List<Empleado> registroVentas,Rol cargo) {
   super(nombre, userId, password);
   this.fecha = fecha;
   this.vendedor = vendedor;

@@ -6,6 +6,7 @@ public class Propiedad {
     private double valor;
     private double area;
     private Propietario propietario;
+    private boolean disponible;
 
     public Propiedad(String direcion, double valor, double area, Propietario propietario) {
         this.direcion = direcion;
@@ -13,6 +14,7 @@ public class Propiedad {
         this.area = area;
         this.propietario = propietario;
     }
+    
 
     public String getDirecion() {
         return direcion;
@@ -46,4 +48,13 @@ public class Propiedad {
         this.propietario = propietario;
     }
 
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+
+    
 }

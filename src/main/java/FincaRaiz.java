@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,12 +12,14 @@ public class FincaRaiz {
     private List <Cliente> clientes;
     private List <Empleado> empleados;
     private List <Administrador> administradores;
+    private List<Transaccion> transacciones;
 
     public FincaRaiz(){
         propiedades = new ArrayList<>();
         empleados = new ArrayList<>();
         clientes = new ArrayList<>();
         administradores = new ArrayList<>();
+        transacciones = new ArrayList<>();
     }
 
     public List<Propiedad> getPropiedades() {
@@ -91,10 +95,70 @@ public class FincaRaiz {
 
 
     }
-    public void registrarTransacciones (){
-
-
+    public void registrarTransacciones (Empleado empleado, Cliente cliente, Propiedad propiedad){
+    	
+    	
+    	Propiedad propiedadDisponible = this.obtenerPropiedad(propiedad.getDirecion());
+    	
+    	if(propiedadDisponible == null) {
+    		System.out.println("esta propiedad no existe");
+    	}
+    	else {
+    		if(propiedadDisponible.isDisponible()) {
+        		System.out.println("la propiedad ya esta ocupada "+propiedad.getDirecion());
+        	}
+        	else {
+        		Transaccion transaccion = new Transaccion(empleado, cliente, propiedad);
+        		transacciones.add(transaccion);
+        		
+        		propiedadDisponible.setDisponible(false);
+        	}
+    	}
+    	
     }
+    
+    public ArrayList<ReporteVentasPorEmpleado> visualizarReporte(LocalDateTime fechaInicio, LocalDateTime fechaFinal, String idEmpleado){
+    	ArrayList<ReporteVentasPorEmpleado> listaReporte = new ArrayList<ReporteVentasPorEmpleado>();
+    
+    	ArrayList<Transaccion> listaTransaccionRango =  (ArrayList<Transaccion>) transacciones.stream().filter(transaccion -> (
+    			  
+    			  transaccion.getEmpleado().getUserId().equals(idEmpleado) &&
+    			  (transaccion.getFechaRegistro().isAfter(fechaInicio) || transaccion.getFechaRegistro().equals(fechaInicio))
+    			  &&
+    			  (transaccion.getFechaRegistro().isBefore(fechaFinal) || transaccion.getFechaRegistro().equals(fechaFinal))
+    			  )).collect(Collectors.toList());
+    	
+    	//Devuelve los datos de un empleado, Busca por id y por rango de fechas y devuelve una lista de transacciones por ejemplo ventas y alquileres de casas 
+    	
+    	
+    	if(listaTransaccionRango.size() > 0) {
+    		ReporteVentasPorEmpleado ventas = new ReporteVentasPorEmpleado(); //Aqui instancio el empleado con 
+        	ventas.setNombreEmpleado(listaTransaccionRango.get(0).getEmpleado().getNombre()); //Con esto accedo al primer registro que sería el nombre del empleado, siempre sera el mismo porque se filtro por un solo id
+        	int cantidadVentas = 0;
+        	double total = 0;
+        	for (Transaccion transac : listaTransaccionRango) {
+        		total += transac.getPropiedad().getValor();
+        		cantidadVentas++;
+    		}
+
+        	ventas.setCantidadPropiedades(cantidadVentas);
+        	ventas.setTotal(total);
+        	listaReporte.add(ventas);
+    	}
+
+    	
+    	return listaReporte;
+    }
+
+
+    
+   public Propiedad obtenerPropiedad(String direccion){
+    	
+        return  propiedades.stream().filter(propiedad -> propiedad.getDirecion().equals(direccion)).findFirst().orElse(null);
+        
+    }
+    
+    
     public List<String> buscarPropiedad(String propiedad){
     	
         return propiedades.stream().map( (propiedad1) -> {
@@ -103,28 +167,8 @@ public class FincaRaiz {
             return propiedad1.equalsIgnoreCase(propiedad);
         }).collect(Collectors.toList());
         
-        //lista.stream
-
-    	// switch (propiedad) {
-		// case "Parqueadero":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Parqueadero).collect(Collectors.toList());
-
-		// case "Bodega":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Bodega).collect(Collectors.toList());
-
-		// case "Edificio":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Edificio).collect(Collectors.toList());
-
-		// case "Vivienda":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Vivienda).collect(Collectors.toList());
-
-		// case "Lote":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Lote).collect(Collectors.toList());
-		// default:
-		// 	break;
-		// }
-
-    	// 	return null;
+        
+        
     }
     public void alquilar(){
 
@@ -136,19 +180,17 @@ public class FincaRaiz {
     	propiedades.remove(propiedad);
     	
     }
-    public void registrarEmpleado(Empleado empleado, Exception e){
-
+    public void registrarEmpleado(Empleado empleado, Exception e) {
     	empleados.add(empleado);
-
-
-    }
-    public void visualizarReportes (DateFormat periodo, Exception e){
-
-
     }
     public void bloquearCuenta(Usuario usuario,Empleado empleado){
 
     	//empleados.remove(empleado);
+    	
+    	if (usuario instanceof Administrador) {
+            Empleado empleadoAux = empleado;
+            empleado = empleados.stream().filter(empleados -> empleados.getUserId() == empleadoAux.getUserId()).findFirst().orElse(null);
+    	
     	
     		if (usuario instanceof Administrador) {
     		empleado.setEstado(false);
@@ -156,17 +198,26 @@ public class FincaRaiz {
     		else {
     			System.out.println("Solo los administradores pueden bloquear cuentas");
     		}
+    	}
     }
-    public void actualizarDatosEmpleado(String nombre, String userId, String password){
+    public void actualizarDatosEmpleado(Usuario usuario, Empleado empleado, String nombre, String userId, String password, boolean estado) throws Exception {
 
-    	int index=empleados.indexOf(empleados.stream().filter(empleado1 ->empleado1.getNombre().equals(nombre)).findFirst().get());
-    	Empleado empleado=new Empleado(nombre,userId,password,true);
-
-    	//empleado.setNombre(nombre);
-        empleado.setUserId(userId);
-        empleado.setPassword(password);
-        empleados.set(index, empleado);
-
-        //final
+    	
+    	
+        if (usuario instanceof Administrador) {
+            Empleado empleadoAux = empleado;
+            empleado = empleados.stream().filter(empleados -> empleados.getUserId() == empleadoAux.getUserId()).findFirst().orElse(null);
+            if (empleado != null) {
+                empleado.setNombre(nombre);
+                empleado.setUserId(userId);
+                empleado.setPassword(password);
+                empleado.setEstado(estado);
+            }
+        } else {
+            throw new Exception("Solo los administradores pueden actualizar empleados");
+        }
     }
+    
 }
+
+

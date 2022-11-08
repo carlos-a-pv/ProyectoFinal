@@ -18,15 +18,26 @@ public class Main {
 		
 		Administrador administrador = new Administrador("Brian","57uy","qw4ep5");
 		Empleado empleado=new Empleado("Ale","12345","ASDFGJMNBVC",true);
-		finca.registrarEmpleado(empleado, null);
-		System.out.println(finca.getEmpleados());
-		finca.actualizarDatosEmpleado("Ale", "54321", "artyknb");
-		System.out.println(finca.getEmpleados());
 		
-		finca.bloquearCuenta(empleado, empleado);
+		finca.registrarEmpleado(empleado, null);
+		
+		System.out.println(finca.getEmpleados());
+		//finca.actualizarDatosEmpleado(administrador, empleado);
+		//System.out.println(finca.getEmpleados());
+		
+		//finca.bloquearCuenta(empleado, empleado);
 		//finca.bloquearCuenta(administrador, empleado);
 		
 		System.out.println(empleado.getEstado());
+		
+		
+//		System.out.println(empleado.getNombre());
+//		System.out.println(empleado.getNombre());
+		
+		
+		finca.actualizarDatosEmpleado(administrador, empleado,"Guzman","1234","15424",true);
+		System.out.println(finca.getEmpleados());
+		
 	}
 	
 
