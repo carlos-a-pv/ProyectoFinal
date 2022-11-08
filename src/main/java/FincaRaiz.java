@@ -210,22 +210,36 @@ public class FincaRaiz {
 
 
     }
-    public void bloquearCuenta(Empleado empleado){
+    public void bloquearCuenta(Usuario usuario,Empleado empleado){
+    	
+		if (usuario instanceof Administrador) {
+            Empleado empleadoAux = empleado;
+            empleado = empleados.stream().filter(empleados -> empleados.getUserId() == empleadoAux.getUserId()).findFirst().orElse(null);
+            if (empleado != null) {
+                empleado.setEstado(false);
+            }else {
+                System.out.println("Datos invalidos.");
+            }
+		}else {
+			System.out.println("Solo los administradores pueden bloquear cuentas");
+			}
+    	}
+    
+    
+    public void actualizarDatosEmpleado(Usuario usuario, Empleado empleado, String nombre, String userId, String password, boolean estado) throws Exception {
 
-    	empleados.remove(empleado);
-
-    }
-    public void actualizarDatosEmpleado(String nombre, String userId, String password){
-
-    	int index=empleados.indexOf(empleados.stream().filter(empleado1 ->empleado1.getNombre().equals(nombre)).findFirst().get());
-    	Empleado empleado=new Empleado(nombre,userId,password);
-
-    	//empleado.setNombre(nombre);
-        empleado.setUserId(userId);
-        empleado.setPassword(password);
-        empleados.set(index, empleado);
-
-        //final
+        if (usuario instanceof Administrador) {
+            Empleado empleadoAux = empleado;
+            empleado = empleados.stream().filter(empleados -> empleados.getUserId() == empleadoAux.getUserId()).findFirst().orElse(null);
+            if (empleado != null) {
+                empleado.setNombre(nombre);
+                empleado.setUserId(userId);
+                empleado.setPassword(password);
+                empleado.setEstado(estado);
+            }
+        } else {
+            throw new Exception("Solo los administradores pueden actualizar empleados");
+        }
     }
     
     public boolean iniciarSesion(Usuario user) {

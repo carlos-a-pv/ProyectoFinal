@@ -1,12 +1,11 @@
 import java.util.List;
 
 public class Empleado extends Usuario {
-
+	private  boolean estado = true;
+	
     public Empleado(String nombre, String userId, String password) {
         super(nombre, userId, password);
-
     }
-	private  boolean estado = true;
 
 	public Empleado(String nombre, String userId, String password, boolean estado) {
 		super(nombre, userId, password);
