@@ -1,4 +1,5 @@
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -113,7 +114,7 @@ public class FincaRaiz {
 
         }
     }
-    public void alquiler (Propiedad propiedad){
+    public void alquiler (Empleado empleado, Cliente cliente, Propiedad propiedad){
     	String disponibilidad = propiedad.getDisponibilidad().toString();
     	
     	for (Propiedad propiedad2 : propiedades) {
@@ -123,8 +124,8 @@ public class FincaRaiz {
 				if(disponibilidad.equalsIgnoreCase("disponible") ) {
 		    		System.out.println("Alquilada");
 		    		propiedad.setDisponibilidad(Disponibilidad.NO_DISPONIBLE);
-		    		//hacer o realizar una trasaccion
-		    		//Llamar al método registrarTransaccion
+		    		
+		    		registrarTransaccion(empleado, cliente, propiedad);
 		    		
 		    	}else {
 		    		System.out.println("La propiedad ya esta alquilada.");
