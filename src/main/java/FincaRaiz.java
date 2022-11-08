@@ -85,6 +85,8 @@ public class FincaRaiz {
 				if(disponibilidad.equalsIgnoreCase("disponible") ) {
 		    		System.out.println("Alquilada");
 		    		propiedad.setDisponibilidad(Disponibilidad.NO_DISPONIBLE);
+		    		//hacer o realizar una trasaccion
+		    		
 		    	}else {
 		    		System.out.println("La propiedad ya esta alquilada.");
 		    	}
@@ -103,6 +105,8 @@ public class FincaRaiz {
 				if(disponibilidad.equalsIgnoreCase("disponible") ) {
 		    		System.out.println("Vendida");
 		    		propiedad.setDisponibilidad(Disponibilidad.NO_DISPONIBLE);
+		    		
+		    		//hacer o realizar una trasaccion
 		    	}else {
 		    		System.out.println("La propiedad ya esta alquilada.");
 		    	}

@@ -1,12 +1,12 @@
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		
 		FincaRaiz finca= new FincaRaiz();
 		System.out.println("BIENVENIDO AL SISTEMA TU FINCA RAIZ");
 		
-		Propiedad propiedad1 = new Propiedad("Calle 10 Nte", 200.000, 70.5, new Propietario(""), Disponibilidad.DISPONIBLE); 
+		Propiedad propiedad1 = new Propiedad("Calle 10 Nte", 200.000, 70.5, new Propietario("", null), Disponibilidad.DISPONIBLE); 
 		
 		finca.alquiler(propiedad1);
 		
@@ -51,6 +51,7 @@ public class Main {
 //		System.out.println(finca.getEmpleados());
 //		finca.actualizarDatosEmpleado("Ale", "54321", "artyknb");
 //		System.out.println(finca.getEmpleados());
+
 		
 	}
 	
