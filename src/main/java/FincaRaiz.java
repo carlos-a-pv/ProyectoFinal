@@ -12,9 +12,9 @@ public class FincaRaiz {
     private List <Administrador> administradores;
 
     public FincaRaiz(){
-        propiedades = new ArrayList<>()
-        empleados = new ArrayList<>()
-        clientes = new ArrayList<>()
+        propiedades = new ArrayList<>();
+        empleados = new ArrayList<>();
+        clientes = new ArrayList<>();
         administradores = new ArrayList<>();
     }
 
@@ -66,7 +66,7 @@ public class FincaRaiz {
     else {
         throw new Exception("Solo los empleados pueden registrar propiedades");
 
-    }
+        }
     }
     public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
 
