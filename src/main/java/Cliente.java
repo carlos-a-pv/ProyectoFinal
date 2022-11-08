@@ -1,6 +1,9 @@
-public class Cliente extends Usuario {
+public class Cliente extends Persona {
 
-    public Cliente(String nombre, String userId, String password) {
-        super(nombre, userId, password);
+    private String password ;
+    public Cliente(String nombre, String id,String password) {
+        super(nombre, id);
+        this.password = password;
     }
+
 }
