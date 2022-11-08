@@ -117,9 +117,10 @@ public class FincaRaiz {
     public void alquiler (Empleado empleado, Cliente cliente, Propiedad propiedad){
     	String disponibilidad = propiedad.getDisponibilidad().toString();
     	
-    	for (Propiedad propiedad2 : propiedades) {
+    	List<Propiedad> listaResultado = propiedades.stream().filter(propiedad1 -> propiedad.equals(propiedad1)).collect(Collectors.toList());
+    	for (Propiedad propiedad3 : listaResultado) {
     		
-			if (propiedad2.equals(propiedad)) {
+    		if (propiedad3.getDirecion().equals(propiedad.getDirecion())) {
 				
 				if(disponibilidad.equalsIgnoreCase("disponible") ) {
 		    		System.out.println("Alquilada");
@@ -135,14 +136,17 @@ public class FincaRaiz {
 			}
 		}
     	
-    	
     }
+    
     public void vender (Empleado empleado, Cliente cliente, Propiedad propiedad){
     	String disponibilidad = propiedad.getDisponibilidad().toString();
     	
-    	for (Propiedad propiedad2 : propiedades) {
+    	List<Propiedad> listaResultado = propiedades.stream().filter(propiedad1 -> propiedad.equals(propiedad1)).collect(Collectors.toList());
+    	
+    	
+    	for (Propiedad propiedad3 : listaResultado) {
     		
-			if (propiedad2.equals(propiedad)) {
+			if (propiedad3.getDirecion().equals(propiedad.getDirecion())) {
 				
 				if(disponibilidad.equalsIgnoreCase("disponible") ) {
 		    		System.out.println("Vendida");
