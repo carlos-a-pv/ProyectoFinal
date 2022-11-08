@@ -6,10 +6,28 @@ import java.util.stream.Collectors;
 
 public class FincaRaiz {
 
-    private List<Propiedad> propiedades= new ArrayList<Propiedad>();
+    private List<Propiedad> propiedades;
     private List <Cliente> clientes;
-    private List <Empleado> empleados=new ArrayList<Empleado>();
+    private List <Empleado> empleados;
     private List <Administrador> administradores;
+
+    private  List <Propietario> propietarios;
+
+    public FincaRaiz() {
+        this.propiedades = new ArrayList<>();
+        this.clientes = new ArrayList<>();
+        this.empleados = new ArrayList<>();
+        this.administradores = new ArrayList<>();
+        this.propietarios = new ArrayList<>();
+    }
+
+    public List<Propietario> getPropietarios() {
+        return propietarios;
+    }
+
+    public void setPropietarios(List<Propietario> propietarios) {
+        this.propietarios = propietarios;
+    }
 
     public List<Propiedad> getPropiedades() {
         return propiedades;
@@ -42,37 +60,84 @@ public class FincaRaiz {
     public void setAdministradores(List<Administrador> administradores) {
         this.administradores = administradores;
     }
-    public void registrarPropiedad(Propiedad propiedad, Usuario usuario) throws Exception {
+    public void registrarEmpleado(Empleado empleado, Administrador administrador) throws Exception {
 
-    if (usuario instanceof Empleado) {
-        String dirrecion1 = propiedad.getDirecion();
-        Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirecion() == dirrecion1).findFirst().orElse(null);
-        if (propiedaAux != null) {
+        if (administrador instanceof Administrador) {
+            String userId1 = empleado.getUserId();
+            Empleado empleadoAux = empleados.stream().filter(empleado1 -> empleado1.getUserId() == userId1).findFirst().orElse(null);
+            if (empleadoAux != null) {
+                throw new Exception("La propiedad ya existe");
+            } else if (empleado != null) {
+
+                empleados.add(empleado);
+            } else {
+                throw new Exception("Datos invalidos");
+            }
+        } else {
+            throw new Exception("Solo los empleados pueden registrar propiedades");
+
+        }
+    }
+    public void registrarPropiedad(Propiedad propiedad, Empleado empleado) throws Exception {
+
+        if (empleado.isEstado() == true) {
+            String dirrecion1 = propiedad.getDirecion();
+            Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirecion() == dirrecion1).findFirst().orElse(null);
+            if (propiedaAux != null) {
+                throw new Exception("La propiedad ya existe");
+            } else if (propiedad != null) {
+
+                propiedades.add(propiedad);
+            } else {
+                throw new Exception("Datos invalidos");
+            }
+        } else {
+            throw new Exception("Solo los empleados pueden registrar propiedades");
+
+        }
+    }
+    public void registrarPropietarioPropietarios(Propietario propietario,Empleado empleado) throws Exception {
+
+        if (empleado.isEstado() == true) {
+            String dirrecion1 = propietario.getNombre();
+            Propietario propietarioAux = propietarios.stream().filter(propietario1 -> propietario1.getNombre() == dirrecion1).findFirst().orElse(null);
+            if (propietarioAux != null) {
+                throw new Exception("La propiedad ya existe");
+            } else if (propietario!= null) {
+
+                propietarios.add(propietario);
+            } else {
+                throw new Exception("Datos invalidos");
+            }
+        } else {
+            throw new Exception("Solo los empleados pueden registrar propiedades");
+
+        }
+    }
+    public void registrarCliente (Cliente cliente,Empleado empleado)throws Exception{
+
+    if (empleado.isEstado() == true) {
+        String dirrecion1 = empleado.getUserId();
+        Empleado propietarioAux = empleados.stream().filter(empleado1 -> empleado1.getNombre() == dirrecion1).findFirst().orElse(null);
+        if (propietarioAux != null) {
             throw new Exception("La propiedad ya existe");
-        } else if (propiedad != null) {
+        } else if (cliente!= null) {
 
-            propiedades.add(propiedad);
+            clientes.add(cliente);
         } else {
             throw new Exception("Datos invalidos");
         }
-    }
-    else {
+    } else {
         throw new Exception("Solo los empleados pueden registrar propiedades");
 
+        }
     }
-    public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
 
-
-    }
-    public void registrarCliente (Cliente cliente,Exception e){
+    public void alquilar (Propiedad propiedad){
 
 
     }
-    public void alquilar (Propiedad propiedad,Exception e){
-
-
-    }
-    public void vender (Propiedad propiedad,Exception e){
+    public void vender (Propiedad propiedad){
 
 
     }
@@ -91,29 +156,6 @@ public class FincaRaiz {
         }).filter( (propiedad1)-> {
             return propiedad1.equalsIgnoreCase(propiedad);
         }).collect(Collectors.toList());
-
-        //lista.stream
-
-    	// switch (propiedad) {
-		// case "Parqueadero":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Parqueadero).collect(Collectors.toList());
-
-		// case "Bodega":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Bodega).collect(Collectors.toList());
-
-		// case "Edificio":
-		// 	return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Edificio).collect(Collectors.toList());
-
-		case "Vivienda": 
-			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Vivienda).collect(Collectors.toList());
-
-		case "Lote": 
-			return	propiedades.stream().filter(propiedad1 ->propiedad1 instanceof Lote).collect(Collectors.toList());			
-		default:
-			break;
-		}
-    	
-    		return null;
     }
     public void alquilar(){
 

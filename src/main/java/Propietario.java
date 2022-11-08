@@ -1,9 +1,7 @@
-public class Propietario {
+public class Propietario extends Persona {
 
-    private String nombre;
-
-    public Propietario(String nombre) {
-        this.nombre = nombre;
+    public Propietario(String nombre, String id) {
+        super(nombre, id);
     }
 
     public String getNombre() {
