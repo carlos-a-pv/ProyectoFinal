@@ -51,23 +51,23 @@ public class FincaRaiz {
     }
     public void registrarPropiedad(Propiedad propiedad, Usuario usuario) throws Exception {
 
-    if (usuario.getCargo()== Rol.EMPLEADO) {
-        String dirrecion1 = propiedad.getDirrecion();
-        Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirrecion() == dirrecion1).findFirst().orElse(null);
-        if (propiedaAux != null) {
-            throw new Exception("La propiedad ya existe");
-        } else if (propiedad != null) {
+        if (usuario instanceof Empleado) {
+            String dirrecion1 = propiedad.getDirecion();
+            Propiedad propiedaAux = propiedades.stream().filter(propiedades -> propiedades.getDirecion() == dirrecion1).findFirst().orElse(null);
+            if (propiedaAux != null) {
+                throw new Exception("La propiedad ya existe");
+            } else if (propiedad != null) {
 
-            propiedades.add(propiedad);
-        } else {
-            throw new Exception("Datos invalidos");
+                propiedades.add(propiedad);
+            } else {
+                throw new Exception("Datos invalidos");
+            }
+        }
+        else {
+            throw new Exception("Solo los empleados pueden registrar propiedades");
         }
     }
-    else {
-        throw new Exception("Solo los empleados pueden registrar propiedades");
-
-        }
-    }
+    
     public void registrarPropietarioPropietarios(Propietario propietario,Exception e){
 
 
@@ -94,10 +94,10 @@ public class FincaRaiz {
     }
     public List<String> buscarPropiedad(String propiedad){
     	
-        return propiedades.stream().map( (propiedad) -> {
-            return propiedad.getClass().getSimpleName();
-        }).filter( (propiedad)-> {
-            return propiedad.equalsIgnoreCase(propiedad);
+        return propiedades.stream().map( (propiedad1) -> {
+            return propiedad1.getClass().getSimpleName();
+        }).filter( (propiedad2)-> {
+            return propiedad2.equalsIgnoreCase(propiedad);
         }).collect(Collectors.toList());
         
         //lista.stream
