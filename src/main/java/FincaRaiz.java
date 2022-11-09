@@ -328,8 +328,8 @@ public class FincaRaiz {
     	System.out.println("1.Registrar propiedad.");
     	System.out.println("2.Registrar propietario.");
     	System.out.println("3.Registrar cliente.");
-    	System.out.println("4.Alquiler.");
-    	System.out.println("5.Venta.");
+    	//System.out.println("4.Alquiler.");
+    	//System.out.println("5.Venta.");
     	System.out.println("6.Retirar propiedad");
     }
     public void menuAdministrador() {
